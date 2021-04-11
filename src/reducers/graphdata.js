@@ -8,9 +8,8 @@ const graphDataReducerDefaultState = {
 };
 
 const GraphDataReducer = (state = graphDataReducerDefaultState, action) => {
-    console.log('reducer');
     switch(action.type) {
-        case ActionTypes.ADD_DATA: {
+        case ActionTypes.UPDATE_DATA: {
             const {topic, rating, name} = action.payload.data;
             //console.log(rating);
            
@@ -45,9 +44,6 @@ const GraphDataReducer = (state = graphDataReducerDefaultState, action) => {
                     currentRatings: ratings
                 }
             }
-        }
-        case ActionTypes.UPDATE_DATA: {
-            return {};
         }
         default:
             return state;

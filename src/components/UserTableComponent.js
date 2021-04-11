@@ -16,10 +16,13 @@ const useStyles = makeStyles({
 });
 
 
-export default function UserTable({onBlur, rows}) {
+export default function UserTable({onUpdateRating, rows}) {
     
     const classes = useStyles();
     console.log('rows',rows);
+
+    const handleFocus = event => event.target.select();
+
     return (
         <TableContainer component={Paper}>
         <Table className={classes.table} size="small" aria-label="a dense table">
@@ -38,14 +41,16 @@ export default function UserTable({onBlur, rows}) {
                     {row.name}
                 </TableCell>
                 <TableCell align="right"> 
-                    <input defaultValue={row.currentRatings} name={row.name} data-col={'currentRatings'} 
-                    onBlur={e => onBlur(e)}/>
+                    <input type='number' value={row.currentRatings} name={row.name} data-col={'currentRatings'} 
+                    onChange={e => onUpdateRating(e)}
+                    onFocus={handleFocus}    
+                    />
                 </TableCell>
                 <TableCell align="right">
-                    <input defaultValue={row.ratings1} name={row.name} data-col={'ratings1'} onBlur={e => onBlur(e)}/>
+                    <input defaultValue={row.ratings1} name={row.name} data-col={'ratings1'} onBlur={e => onUpdateRating(e)}/>
                 </TableCell>
                 <TableCell align="right">
-                    <input defaultValue={row.ratings2} name={row.name} data-col={'ratings2'} onBlur={e => onBlur(e)}/>
+                    <input defaultValue={row.ratings2} name={row.name} data-col={'ratings2'} onBlur={e => onUpdateRating(e)}/>
                 </TableCell>
                 </TableRow>
             ))}

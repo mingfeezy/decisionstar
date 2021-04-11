@@ -2,18 +2,16 @@ import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux'; 
 import UserTable from './UserTableComponent';
 import RadarGraph from './RadarGraphComponent';
-import { addData } from '../actions/ActionCreators';
+import { updateData } from '../actions/ActionCreators';
+
+const createData = (name, currentRatings, ratings1, ratings2) => {
+  return { name, currentRatings, ratings1, ratings2};
+}
 
 const Main = () => {
   const dispatch = useDispatch();
   const graphData = useSelector(state => state.graphData);
-
-  const createData = (name, currentRatings, ratings1, ratings2) => {
-      return { name, currentRatings, ratings1, ratings2};
-    }
-
-  console.log('graphdata', graphData);
-
+  console.log('graphData', graphData);
   return (
     <div>
       <UserTable 
@@ -22,9 +20,9 @@ const Main = () => {
               createData(label, graphData.currentRatings[index], graphData.ratings1[index], graphData.ratings2[index])
             )
           }
-          onBlur={
+          onUpdateRating={
             (e)=>{
-              dispatch( addData({
+              dispatch( updateData({
                   topic: e.target.getAttribute("data-col"),
                   rating: e.target.value,
                   name:e.target.name
