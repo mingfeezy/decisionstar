@@ -1,61 +1,95 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
+  table: {},
+  input: {
+    width: "100px"
   },
+  h2: {
+    margin: "15px"
+  }
 });
 
+export default function UserTable({ onUpdateRating, rows }) {
+  const classes = useStyles();
+  const handleFocus = event => {
+    console.log(event.target.value);
+    if (event.target.value === 0) {
+      event.target.value = "dasfasdfadsfdsf";
+    }
+    event.target.select();
+  };
 
-export default function UserTable({onUpdateRating, rows}) {
-    
-    const classes = useStyles();
-    console.log('rows',rows);
-
-    const handleFocus = event => event.target.select();
-
-    return (
-        <TableContainer component={Paper}>
-        <Table className={classes.table} size="small" aria-label="a dense table">
-            <TableHead>
+  return (
+    <>
+      <h2 className={classes.h2}>
+        Rate the quality of your inquiry on each topic from 0 (not started) to
+        100 (complete)
+      </h2>
+      <TableContainer component={Paper}>
+        <Table
+          className={classes.table}
+          size="small"
+          aria-label="a dense table"
+        >
+          <TableHead>
             <TableRow>
-                <TableCell>Inquiry Topic</TableCell>
-                <TableCell align="right">Your Current Rating</TableCell>
-                <TableCell align="right">Reference Rating 1</TableCell>
-                <TableCell align="right">Reference Rating 2</TableCell>
+              <TableCell>Inquiry Topic</TableCell>
+              <TableCell align="right">Your Current Rating</TableCell>
+              <TableCell align="right">Reference Rating 1</TableCell>
+              <TableCell align="right">Reference Rating 2</TableCell>
             </TableRow>
-            </TableHead>
-            <TableBody>
+          </TableHead>
+          <TableBody>
             {rows.map(row => (
-                <TableRow key={row.name}>
+              <TableRow key={row.name}>
                 <TableCell component="th" scope="row">
-                    {row.name}
+                  {row.name}
                 </TableCell>
-                <TableCell align="right"> 
-                    <input type='number' value={row.currentRatings} name={row.name} data-col={'currentRatings'} 
+                <TableCell align="right">
+                  <input
+                    className={classes.input}
+                    type="number"
+                    value={row.currentRatings}
+                    name={row.name}
+                    data-col={"currentRatings"}
                     onChange={e => onUpdateRating(e)}
-                    onFocus={handleFocus}    
-                    />
+                    onFocus={handleFocus}
+                  />
                 </TableCell>
                 <TableCell align="right">
-                    <input defaultValue={row.ratings1} name={row.name} data-col={'ratings1'} onBlur={e => onUpdateRating(e)}/>
+                  <input
+                    className={classes.input}
+                    defaultValue={row.ratings1}
+                    name={row.name}
+                    data-col={"ratings1"}
+                    onChange={e => onUpdateRating(e)}
+                    onFocus={handleFocus}
+                  />
                 </TableCell>
                 <TableCell align="right">
-                    <input defaultValue={row.ratings2} name={row.name} data-col={'ratings2'} onBlur={e => onUpdateRating(e)}/>
+                  <input
+                    className={classes.input}
+                    defaultValue={row.ratings2}
+                    name={row.name}
+                    data-col={"ratings2"}
+                    onChange={e => onUpdateRating(e)}
+                    onFocus={handleFocus}
+                  />
                 </TableCell>
-                </TableRow>
+              </TableRow>
             ))}
-            </TableBody>
+          </TableBody>
         </Table>
-        </TableContainer>
-    );
+      </TableContainer>
+    </>
+  );
 }
