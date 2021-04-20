@@ -21,11 +21,7 @@ const useStyles = makeStyles({
 export default function UserTable({ onUpdateRating, rows }) {
   const classes = useStyles();
   const handleFocus = event => {
-    console.log(event.target.value);
-    if (event.target.value === 0) {
-      event.target.value = "dasfasdfadsfdsf";
-    }
-    event.target.select();
+    return event.target.select();
   };
 
   return (
@@ -61,14 +57,20 @@ export default function UserTable({ onUpdateRating, rows }) {
                     value={row.currentRatings}
                     name={row.name}
                     data-col={"currentRatings"}
-                    onChange={e => onUpdateRating(e)}
+                    onChange={e => {
+                      console.log("current value", e.target.value);
+                      //if (e.target.value === "0") e.target.select();
+                      //else
+                      onUpdateRating(e, true);
+                    }}
                     onFocus={handleFocus}
                   />
                 </TableCell>
                 <TableCell align="right">
                   <input
                     className={classes.input}
-                    defaultValue={row.ratings1}
+                    type="number"
+                    value={row.ratings1}
                     name={row.name}
                     data-col={"ratings1"}
                     onChange={e => onUpdateRating(e)}
@@ -78,7 +80,8 @@ export default function UserTable({ onUpdateRating, rows }) {
                 <TableCell align="right">
                   <input
                     className={classes.input}
-                    defaultValue={row.ratings2}
+                    type="number"
+                    value={row.ratings2}
                     name={row.name}
                     data-col={"ratings2"}
                     onChange={e => onUpdateRating(e)}

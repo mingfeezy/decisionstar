@@ -1,8 +1,8 @@
-import * as ActionTypes from './ActionTypes';
+import * as ActionTypes from "./ActionTypes";
 
-export const updateData = data => ({
-    type: ActionTypes.UPDATE_DATA,
-    payload: {
-       data
-    }
-})
+export const updateData = (data) => ({
+  type: ActionTypes.UPDATE_DATA,
+  payload: {
+    data,
+  },
+});

@@ -19,11 +19,8 @@ const GraphDataReducer = (state = graphDataReducerDefaultState, action) => {
       const indexOfTopic = state.labels.findIndex(label => name === label);
 
       //need to make a copy by value here or redux wont know its really been changed
-
       ratings = [...state[topic]];
-      ratings[indexOfTopic] = parseInt(
-        rating.trim() === "" ? "0" : rating.trim()
-      );
+      ratings[indexOfTopic] = parseInt(rating.trim());
       return {
         ...state,
         [topic]: ratings
